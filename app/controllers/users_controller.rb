@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @book = Book.new
+    @user = current_user
+    # binding.pry
   end
 
   def edit
@@ -28,6 +30,19 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+  def follow(other_user)
+    relationships.create(followed_id: other_user_id)
+  end
+
+  def unfollow(other_user)
+    relationships.find_by(followed_id: other_user_id).destroy
+  end
+
+  def following?(other_user)
+    followings.include?(other_user)
+  end
+
 
   private
   def user_params

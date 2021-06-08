@@ -11,6 +11,7 @@ class BooksController < ApplicationController
     @books = Book.all
     @book = Book.new
     @user = current_user
+    @ranks = Book.last_week
   end
 
   def create
@@ -49,7 +50,7 @@ class BooksController < ApplicationController
     @book.destroy
     redirect_to books_path
   end
-
+  
   private
 
   def book_params
